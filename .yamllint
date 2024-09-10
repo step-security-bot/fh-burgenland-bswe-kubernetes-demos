@@ -1,0 +1,11 @@
+---
+extends: default
+
+ignore:
+  - vclusters/
+  - argocd/library/charts
+  - exercise/helm/
+
+rules:
+  line-length:
+    max: 100

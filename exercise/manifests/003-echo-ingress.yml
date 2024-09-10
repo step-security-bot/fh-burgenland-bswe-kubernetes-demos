@@ -1,0 +1,21 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echo
+  namespace: echo
+  labels:
+    app.kubernetes.io/name: echo
+    app.kubernetes.io/component: echo
+spec:
+  rules:
+    - host: echo.demo.cluster.classroom.bswe.fh-burgenland.muehlbachler.xyz
+      http:
+        paths:
+          - backend:
+              service:
+                name: echo
+                port:
+                  name: http
+            path: /
+            pathType: ImplementationSpecific

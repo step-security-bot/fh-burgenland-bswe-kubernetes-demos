@@ -1,0 +1,19 @@
+---
+# see: https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+configs:
+  params:
+    server.insecure: true
+
+  repositories:
+    bitnami:
+      name: bitnami
+      url: registry-1.docker.io/bitnamicharts
+      enableOCI: "true"
+      type: helm
+
+server:
+  service:
+    type: NodePort
+
+  ingress:
+    enabled: false

@@ -1,0 +1,30 @@
+---
+# see: https://github.com/argoproj/argo-helm/blob/main/charts/argocd-apps/values.yaml
+applications:
+  - name: wordpress
+    namespace: argocd
+    project: default
+    finalizers:
+      - resources-finalizer.argocd.argoproj.io
+    destination:
+      namespace: wordpress-argocd
+      server: https://kubernetes.default.svc
+    sources:
+      - chart: wordpress
+        repoURL: registry-1.docker.io/bitnamicharts
+        targetRevision: 23.1.12
+        helm:
+          releaseName: wordpress
+          valueFiles:
+            - $values/wordpress/helm/values.yml
+      - ref: values
+        repoURL: https://github.com/muhlba91/fh-burgenland-bswe-kubernetes-demos.git
+        targetRevision: HEAD
+    syncPolicy:
+      automated:
+        prune: false
+        selfHeal: false
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+        - FailOnSharedResource=true
